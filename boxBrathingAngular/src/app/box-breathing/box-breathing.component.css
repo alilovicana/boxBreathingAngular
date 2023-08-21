@@ -1,0 +1,59 @@
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background: radial-gradient(
+      circle at center,
+      rgb(20, 30, 38) 0%,
+      rgb(41, 61, 79) 120%
+    );
+  }
+}
+
+#main-canvas {
+  display: none;
+  width: 40%; /* Dodajte ovo svojstvo */
+  height: auto; /* Dodajte ovo svojstvo */
+  border-radius: 10%;
+  transition: width 4s ease;
+  animation: expand-shrink 16s infinite;
+}
+
+@keyframes expand-shrink {
+  0%,
+  100% {
+    width: 40%;
+  }
+  25%,
+  50% {
+    width: 42%;
+  }
+  75% {
+    width: 38%;
+  }
+}
+
+#second-canvas {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10%;
+  background-color: rgba(255, 255, 255, 0.2);
+  text-align: center;
+  vertical-align: middle;
+  width: 60%; 
+  height: auto; 
+}
+/**********RESPONZIVNOST*****************/
+
+
