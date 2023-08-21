@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { BoxBreathingService } from '../services/box-breathing.service';
 
 @Component({
   selector: 'app-box-breathing',
@@ -6,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./box-breathing.component.css'],
 })
 export class BoxBreathingComponent implements OnInit {
-  constructor() {}
+  constructor(private $boxBreathingService:BoxBreathingService) {}
 
   ngOnInit(): void {
    
@@ -30,7 +31,7 @@ export class BoxBreathingComponent implements OnInit {
       ctx.stroke();
     }
 
-    const phase_time = 4;
+    const phase_time = this.$boxBreathingService.phase_time;
     const dpr = Math.ceil(window.devicePixelRatio);
     canvas.width = 200 * dpr;
     canvas.height = 200 * dpr;
@@ -49,7 +50,7 @@ export class BoxBreathingComponent implements OnInit {
     } else {
       ctx.strokeStyle = '#dbf5ff';
     }
-    const stages = ['Udahni', 'Zadrži dah', 'Izdahni', 'Zadrži dah'];
+    const stages =[this.$boxBreathingService.stages[0],this.$boxBreathingService.stages[1],this.$boxBreathingService.stages[2],this.$boxBreathingService.stages[3]]
     const textWidths = stages.map((text) => ctx.measureText(text).width);
 
     function text(section: number, opacity: number) {
@@ -112,27 +113,25 @@ export class BoxBreathingComponent implements OnInit {
 
     tick(Date.now());
 
-    /*******************Second_canvas*****************/
+    /*******************first_canvas*****************/
     const canvas2 = document.getElementById(
-      'second-canvas'
+      'first-canvas'
     ) as HTMLCanvasElement;
     const ctx2 = canvas2.getContext('2d') as CanvasRenderingContext2D;
 
     const texts = [
       {
-        content:
-          '"Box breathing" je tehnika disanja koja:<br> <br>-smanjuje stres,<br> <br>-poboljšava raspoloženje, <br><br> -omogućava bolju kontrolu nad emocijama',
+        content:this.$boxBreathingService.content[0],
         duration: 10000,
         fontSize: '25px',
       },
       {
-        content:
-          'PRAVILA: <br> <br> <br> Čitajte naredbe u sredini kvadrata <br> <br>1) Udahni- udišite zrak 4 sekunde <br> <br>2) Zadrži dah- zadrži dah 4 sekunde <br> <br>3) Izdahni- Izdišite zrak 4 sekunde <br> <br>4) Zadrži dah- zadrži dah 4 sekunde ',
+        content:this.$boxBreathingService.content[1],
         duration: 10000,
         fontSize: '25px',
       },
       {
-        content: 'Opustite se :)',
+        content:this.$boxBreathingService.content[2],
         duration: 3000,
         fontSize: '30px',
       },
@@ -183,20 +182,20 @@ export class BoxBreathingComponent implements OnInit {
 
 //////////////**component substitution */
 
-    const duration1 = 26; // Trajanje second kanvasa u sekundama
-    const duration2 = 96; // Trajanje main kanvasa u sekundama
+    const duration1 = 26; // Trajanje first kanvasa u sekundama
+    const duration2 = (phase_time*4)*this.$boxBreathingService.num_of_repetitions; // Trajanje main kanvasa u sekundama
     const totalDuration = duration1 + duration2; // Ukupno trajanje animacije
 
     const startTime = Date.now();
 
     function animate() {
       const currentTime = Date.now();
-      const elapsedSeconds = (currentTime - startTime) / 1000;
+      const elapsedfirsts = (currentTime - startTime) / 1000;
 
-      if (elapsedSeconds < duration1) {
+      if (elapsedfirsts < duration1) {
         canvas.style.display = "none";
         canvas2.style.display = "block";
-      } else if (elapsedSeconds < totalDuration) {
+      } else if (elapsedfirsts < totalDuration) {
         canvas.style.display = "block";
         canvas2.style.display = "none";
       } else {
@@ -208,6 +207,6 @@ export class BoxBreathingComponent implements OnInit {
     }
     animate();
   }
-
+  
     
 }

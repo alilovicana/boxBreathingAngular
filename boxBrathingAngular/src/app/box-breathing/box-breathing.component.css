@@ -1,9 +1,5 @@
-html,
 body {
   height: 100%;
-}
-
-body {
   margin: 0;
   display: flex;
   align-items: center;
@@ -20,22 +16,27 @@ body {
   }
 }
 
-#main-canvas {
-  display: none;
-  width: 40%; /* Dodajte ovo svojstvo */
-  height: auto; /* Dodajte ovo svojstvo */
+#main-canvas,
+#first-canvas {
   border-radius: 10%;
+  text-align: center;
+  vertical-align: middle;
+  height: 100%; /* Postavljamo istu visinu za oba kanve */
+}
+
+#main-canvas {
+  padding:2%;
+  display: none;
+  width: 40%;
   transition: width 4s ease;
   animation: expand-shrink 16s infinite;
 }
 
 @keyframes expand-shrink {
-  0%,
-  100% {
+  0%, 100% {
     width: 40%;
   }
-  25%,
-  50% {
+  25%, 50% {
     width: 42%;
   }
   75% {
@@ -43,17 +44,10 @@ body {
   }
 }
 
-#second-canvas {
+#first-canvas {
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 10%;
   background-color: rgba(255, 255, 255, 0.2);
-  text-align: center;
-  vertical-align: middle;
-  width: 60%; 
-  height: auto; 
+  width: 60%;
 }
-/**********RESPONZIVNOST*****************/
-
-
