@@ -37,7 +37,7 @@ export class BoxBreathingComponent implements OnInit {
     canvas.height = 200 * dpr;
     ctx.scale(dpr, dpr);
 
-    ctx.font = '10px Roboto, sans-serif';
+    ctx.font = '11px Roboto, sans-serif';
     ctx.lineWidth = 5;
 
     if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
@@ -48,19 +48,18 @@ export class BoxBreathingComponent implements OnInit {
         'manifest-dark.json';
       ctx.strokeStyle = 'rgba(35, 65, 77, 0.2)';
     } else {
-      ctx.strokeStyle = '#dbf5ff';
+      ctx.fillStyle = 'rgba(235, 248, 252, 0.5)';
     }
     const stages =[this.$boxBreathingService.stages[0],this.$boxBreathingService.stages[1],this.$boxBreathingService.stages[2],this.$boxBreathingService.stages[3]]
     const textWidths = stages.map((text) => ctx.measureText(text).width);
 
     function text(section: number, opacity: number) {
-      ctx.fillStyle = `rgba(255, 255, 255, ${opacity})`;
+      ctx.fillStyle = `rgba(165, 191, 212, ${opacity})`;
       ctx.fillText(stages[section], 100 - textWidths[section] / 2, 105);
     }
 
     function line(section: number, location: number, length: number) {
-      // ctx.fillStyle = 'rgba(35, 65, 77, 0.5)';
-      ctx.fillStyle = 'white';
+      ctx.fillStyle = 'rgba(235, 248, 252, 0.5)';
       ctx.beginPath();
 
       switch (section) {
